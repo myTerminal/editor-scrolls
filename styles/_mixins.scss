@@ -1,0 +1,69 @@
+@mixin opacity ($opacity: 1) {
+    opacity: $opacity;
+    filter:alpha(opacity=$opacity);
+}
+
+@mixin filter ($prop: none) {
+    -webkit-filter: $prop;
+    -moz-filter: $prop;
+    -ms-filter: $prop;
+    -o-filter: $prop;
+    filter: $prop;
+}
+
+@mixin transition ($seconds: 1s) {
+    -moz-transition: $seconds;
+    -webkit-transition: $seconds;
+    -o-transition: $seconds;
+    transition: $seconds;
+}
+
+@mixin perspective ($perspective: 500) {
+    -webkit-perspective: $perspective;
+    perspective: $perspective;
+}
+
+@mixin round-borders ($borderRadius: 5px) {
+    -moz-border-radius: $borderRadius; 
+    -webkit-border-radius: $borderRadius;
+    border-radius: $borderRadius;
+}
+
+@mixin box-sizing ($sizing: border-box) {
+    -moz-box-sizing: $sizing;
+    box-sizing: $sizing;
+}
+
+@mixin background-gradient-twoColor ($topColor: #FFFFFF, $bottomColor: #000000) {
+    background-image: -ms-linear-gradient(top, $topColor 0%, $bottomColor 100%);
+    background-image: -moz-linear-gradient(top, $topColor 0%, $bottomColor 100%);
+    background-image: -o-linear-gradient(top, $topColor 0%, $bottomColor 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, $topColor), color-stop(1, $bottomColor));
+    background-image: -webkit-linear-gradient(top, $topColor 0%, $bottomColor 100%);
+    background-image: linear-gradient(top, $topColor 0%, $bottomColor 100%);
+}
+
+@font-face {
+    font-family: Dosis;
+    src: url(../fonts/Dosis-Regular.otf);
+}
+
+@font-face {
+    font-family: Exo;
+    src: url(../fonts/Exo-Regular.otf);
+}
+
+@font-face {
+    font-family: Jura;
+    src: url(../fonts/Jura-Regular.otf);
+}
+
+@font-face {
+    font-family: Sofia;
+    src: url(../fonts/Sofia-Regular.otf);
+}
+
+@font-face {
+    font-family: Tangerine;
+    src: url(../fonts/Tangerine_Regular.ttf);
+}

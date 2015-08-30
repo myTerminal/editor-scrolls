@@ -1,0 +1,454 @@
+@import 'mixins';
+
+@keyframes blink {
+    from {
+        @include opacity(1);
+    }
+    to {
+        @include opacity(0);
+    }
+}
+
+@keyframes show {
+    from {
+        @include opacity(0);
+    }
+    to {
+        @include opacity(1);
+    }
+}
+
+.blink {
+    animation-name: blink;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+.smooth-show {
+    animation-name: show;
+    animation-duration: 2s;
+    animation-iteration-count: 2;
+    animation-direction: alternate;
+}
+
+html {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+    height: 100%;
+    font-family: Dosis;
+    cursor: url(../cursors/gam1232.png), auto;
+}
+
+#canvas {
+    margin: -5px;
+    position: fixed;
+    width: 105%;
+    height: 105%;
+    top: 0px;
+    left: 0px;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    z-index: -1;
+    @include filter(blur(3px));
+}
+
+#game-container {
+    float: left;
+    width: 100%;
+    height: 100%;
+
+    #overlay-container {
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        width: 100%;
+        height: 100%;
+        @include perspective(1000px);
+        z-index: 2;
+
+        #health-overlay {
+            position: absolute;
+            width: 200px;
+            right: 0px;
+            bottom: 0px;
+            margin: 20px;
+            -webkit-transform: rotate3d(0, 1, 0, -30deg);
+            -webkit-transform-origin: 100% 100%;
+
+            #character-name {
+                font-size: 20px;
+                font-weight: Bold;
+                text-shadow: 0px 0px 10px White;
+            }
+
+            .bar-container {
+                border: 2px solid Black;
+                @include round-borders(3px);
+                margin-top: 3px;
+                height: 20px;
+                @include background-gradient-twoColor(White, Gray);
+                box-shadow: 0px 0px 5px White;
+                
+                .bar {
+                    height: 100%;
+                    
+                    &#health {
+                        @include background-gradient-twoColor(Red, Maroon);
+                    }
+                    
+                    &#mana {
+                        @include background-gradient-twoColor(Teal, Blue);
+                    }
+                }
+            }
+        }
+
+        #experience-overlay {
+            position: absolute;
+            width: 200px;
+            left: 0px;
+            bottom: 0px;
+            margin: 20px;
+            -webkit-transform: rotate3d(0, 1, 0, 30deg);
+            -webkit-transform-origin: 0% 100%;
+
+            #level {
+                font-size: 20px;
+                font-weight: Bold;
+                text-shadow: 0px 0px 10px White;
+            }
+
+            .bar-container {
+                border: 2px solid Black;
+                @include round-borders(3px);
+                margin-top: 3px;
+                height: 20px;
+                @include background-gradient-twoColor(White, Gray);
+                box-shadow: 0px 0px 5px White;
+                
+                .bar {
+                    height: 100%;
+                    
+                    &#experience {
+                        @include transition(1s);
+                        @include background-gradient-twoColor(Yellow, Brown);
+                    }
+                }
+            }
+        }
+
+        #objectives-overlay {
+            position: absolute;
+            width: 300px;
+            height: 100%;
+            left: 0px;
+            top: 0px;
+            display: table;
+            font-size: 20px;
+            -webkit-transform: rotate3d(0, 1, 0, 30deg);
+            -webkit-transform-origin: 0px 50%;
+            color: White;
+            text-shadow: 0px 0px 10px Black;
+
+            #objectives-container {
+                display: table-cell;
+                vertical-align: middle;
+                padding: 10px;
+
+                .objective {
+                    &.completed {
+                        text-decoration: line-through;
+                        @include opacity(0.5);
+                    }
+                }
+            }
+
+        }
+        
+        #objective-status {
+            position: absolute;
+            top: 0px;
+            width: 100%;
+            margin-top: 200px;
+            @include opacity(0);
+            background-color: rgba(0, 0, 0, 0.3);
+            
+            &.visible {
+                @extend .smooth-show;
+            }
+
+            div {
+                color: White;
+                font-size: 32px;
+                text-shadow: 0px 0px 10px Black;
+                text-align: center;
+                margin: 10px 0px;
+            }
+        }
+
+        #level-up-message {
+            position: absolute;
+            top: 40%;
+            left: 0px;
+            width: 100%;
+            text-align: center;
+            @include transition(1s);
+            @include opacity(0);
+            color: goldenrod;
+            text-shadow: 0px 0px 10px White;
+
+            &.visible {
+                @include opacity(1);
+                font-size: 150px;
+            }
+        }
+    }
+
+    #main-area {
+        margin: 0px auto;
+        position: fixed;
+        top: 0px;
+        width: 800px;
+    }
+
+    .screen {
+        position: fixed;
+        width: 100%;
+        height: 100%;
+
+        .back-button {
+            position: absolute;
+            color: White;
+            right: 20px;
+            bottom: 20px;
+            font-size: 24px;
+
+            &:hover {
+                color: Gold;
+            }
+        }
+
+        &#loading-screen {
+            background-color: Black;
+            display: table;
+            z-index: 5;
+
+            #loading-label {
+                color: White;
+                display: table-cell;
+                vertical-align: middle;
+                font-size: 48px;
+                text-align: center;
+            }
+        }
+        
+        &#title-screen {
+            background-color: Black;
+            color: White;
+            z-index: 5;
+            
+            #game-name {
+                margin-top: 20%;
+                font-size: 100px;
+                font-family: Tangerine;
+                text-align: center;
+                color: Gold;
+            }
+
+            #press-any-key {
+                margin-top: 20%;
+                font-size: 24px;
+                font-family: Dosis;
+                text-align: center;
+            }
+
+            #copy-right {
+                font-family: Dosis;
+                position: absolute;
+                bottom: 10px;
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        &#main-menu {
+            background-color: Black;
+            z-index: 5;
+            
+            #side-title {
+                float: left;
+                width: 50%;
+                height: 100%;
+                display: table;
+                
+                #side-title-label {
+                    display: table-cell;
+                    vertical-align: middle;
+                    height: 500px;
+                    color: Gold;
+                    font-size: 80px;
+                    font-family: Tangerine;
+                    text-align: right;
+                    padding-right: 50px;
+                }
+            }
+
+            #options-right {
+                float: right;
+                width: 50%;
+                height: 100%;
+                display: table;
+                
+                #menu-options {
+                    display: table-cell;
+                    vertical-align: middle;
+                    color: White;
+                    font-size: 36px;
+                    padding-left: 50px;
+                    
+                    .menu-option {
+                        &:hover {
+                            color: Gold;
+                        }
+                    }
+                }
+            }
+        }
+
+        &#episodes-screen {
+            background-color: Black;
+            display: table;
+            z-index: 5;
+            
+            #episodes-container {
+                display: table-cell;
+                vertical-align: middle;
+                color: White;
+
+                .header {
+                    text-align: center;
+                    font-size: 48px;
+                    margin-bottom: 30px;
+                }
+                
+                .episode {
+                    text-align: center;
+                    font-size: 36px;
+                    
+                    &:hover {
+                        color: Gold;
+                    }
+                }
+            }
+        }
+        
+        &#character-screen {
+            background-color: Black;
+            z-index: 5;
+            
+            #characters-container {
+                float: left;
+                width: 50%;
+                height: 100%;
+                display: table;
+
+                #characters-header {
+                    color: White;
+                    font-size: 48px;
+                    text-align: right;
+                    padding-bottom: 30px;
+                }
+
+                #characters-parent {
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding-right: 50px;
+                    
+                    #character {
+                        color: White;
+                        font-size: 36px;
+                        text-align: right;
+                        margin-top: 20px;
+
+                        &.selected {
+                            color: Gold;
+                        }
+                    }
+                }
+            }
+
+            #character-description-container {
+                float: right;
+                width: 50%;
+                height: 100%;
+                display: table;
+
+                #character-description {
+                    display: table-cell;
+                    vertical-align: middle;
+                    padding: 100px 100px 0px 50px;
+                    color: White;
+                    font-size: 24px;
+                }
+            }
+        }
+
+        &#game {
+            .slides-container {
+                @include transition(1s);
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                width: 100%;
+                height: 100%;
+                color: #330000;
+
+                &.previous {
+                    margin-top: -100%;
+                }
+                
+                &.next {
+                    margin-top: 100%;
+                }
+                
+                .slide {
+                    margin: 0px auto;
+                    width: 720px;
+                    height: 90%;
+                    background-image: url('../images/paper.jpg');
+                    box-shadow: 0px 0px 10px Black;
+                    padding: 10px 20px;
+
+                    .slide-title {
+                        font-family: Sofia;
+                    }
+
+                    .slide-description {
+                        margin-bottom: 50px;
+                    }
+
+                    .slide-item {
+                        font-size: 20px;
+                        margin: 10px 30px 20px 30px;
+                        @include opacity(0);
+                        @include transition(1s);
+                        -webkit-transform: translateY(50px);
+
+                        &.visible {
+                            @include opacity(1);
+                            -webkit-transform: translateY(0px);
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+

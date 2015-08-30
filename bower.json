@@ -1,0 +1,22 @@
+{
+  "name": "editor-scrolls",
+  "version": "0.9.0",
+  "authors": [
+    "myTerminal <team.terminal@gmail.com>"
+  ],
+  "keywords": [
+    "emacs"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4",
+    "knockout": "~3.3.0"
+  }
+}

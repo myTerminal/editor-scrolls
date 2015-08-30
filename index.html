@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<head>
+    <title>editor-scrolls</title>
+
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0" />
+
+    <link type="text/css" rel="stylesheet" href="styles/styles.css" />
+
+    <script type="text/javascript" src="scripts/libs/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="scripts/libs/knockout/dist/knockout.js"></script>
+    
+    <script type="text/javascript" src="scripts/constants.js"></script>
+    <script type="text/javascript" src="scripts/types.js"></script>
+    <script type="text/javascript" src="scripts/episodes.js"></script>
+    <script type="text/javascript" src="scripts/viewmodel.js"></script>
+    <script type="text/javascript" src="scripts/app.js"></script>
+</head>
+<body>
+    <div id="canvas"></div>
+    <div id="game-container">
+        <div id="overlay-container">
+            <div id="health-overlay" data-bind="with: stats">
+                <div id="character-name" data-bind="text: character().name"></div>
+                <div class="bar-container">
+                    <div class="bar" id="health" data-bind="style: { width: health() + '%' }"></div>
+                </div>
+                <div class="bar-container">
+                    <div class="bar" id="mana" data-bind="style: { width: mana() + '%' }"></div>
+                </div>
+            </div>
+            <div id="experience-overlay" data-bind="with: experience">
+                <div id="level" data-bind="text: 'Level ' + level()"></div>
+                <div class="bar-container">
+                    <div class="bar" id="experience" data-bind="style: { width: progress() + '%' }"></div>
+                </div>
+            </div>
+            <div id="objectives-overlay">
+                <div id="objectives-container" data-bind="foreach: episode().slides">
+                    <div class="objective" data-bind="text: objective, css: { 'completed': isComplete }, visible: isComplete() || $root.currentSlide() === $data"></div>
+                </div>
+            </div>
+            <div id="objective-status" data-bind="css: { visible: $root.shouldShowObjectiveCompleteMessage }">
+                <div id="objective-complete" data-bind="text: 'Quest complete: ' + currentSlide().objective"></div>
+                <div id="new-objective" data-bind="text: 'Quest started: ' + nextQuest(), visible: !isLevelComplete()"></div>
+            </div>
+            <div id="level-up-message" data-bind="css: { visible: isLevelUp }">
+                Level Up!
+            </div>
+        </div>
+        
+        <div class="screen" id="game" data-bind="visible: mode() === GameModes.game">
+            <!-- ko foreach: episode().slides -->
+            <div class="slides-container" data-bind="css: { previous: isPrevious($root.currentSlide(), $root.episode().slides),
+                                              next: isNext($root.currentSlide(), $root.episode().slides),
+                                              current: isCurrent($root.currentSlide()) }">>
+                <div class="slide">
+                    <h1 class="slide-title" data-bind="text: title"></h1>
+                    <h2 class="slide-description" data-bind="text: description"></h2>
+                    <!-- ko foreach: items -->
+                    <div class="slide-item" data-bind="html: text, css: { visible: state }"></div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <!-- /ko -->
+        </div>
+        
+        <div class="screen" id="character-screen" data-bind="visible: mode() === GameModes.character">
+            <div id="characters-container">
+                <div id="characters-parent">
+                    <div id="characters-header">
+                        Select your Character
+                    </div>
+                    <!-- ko foreach: characters -->
+                    <div id="character" data-bind="text: name, 
+                                                   event: { mouseover: function () { $root.stats.character($data); }, click: function () { $root.startEpisode(0); } },
+css: { selected: $root.stats.character() === $data }"></div>
+                    <!-- /ko -->
+                </div>
+            </div>
+            <div id="character-description-container">
+                <div id="character-description"
+                     data-bind="html: stats.character().description">
+                </div>
+            </div>
+            <div class="back-button" data-bind="click: function () { mode(GameModes.menu); }">
+                Back to Menu
+            </div>
+        </div>
+        
+        <div class="screen" id="episodes-screen" data-bind="visible: mode() === GameModes.episodes">
+            <div id="episodes-container">
+                <div class="header">Episodes</div>
+                <!-- ko foreach: episodes -->
+                <div class="episode" data-bind="click: function () { $root.startEpisode($index()) }">
+                    <span data-bind="text: ($index() + 1) + ' - '"></span>
+                    <span data-bind="text: title"></span>
+                </div>
+                <!-- /ko -->
+            </div>
+            <div class="back-button" data-bind="click: function () { mode(GameModes.menu); }">
+                Back to Menu
+            </div>
+        </div>
+        
+        <div class="screen" id="main-menu" data-bind="visible: mode() === GameModes.menu">
+            <div id="side-title">
+                <div id="side-title-label">
+                    Editor Scrolls
+                </div>
+            </div>
+            <div id="options-right">
+                <div id="menu-options">
+                    <div class="menu-option"
+                         data-bind="click: function () { mode(GameModes.character); }">
+                        New Game
+                    </div>
+                    <div class="menu-option"
+                         data-bind="click: function () { mode(GameModes.episodes); }">
+                        Continue
+                    </div>
+                    <div class="menu-option">
+                        Options
+                    </div>
+                    <div class="menu-option">
+                        Credits
+                    </div>
+                    <div class="menu-option">
+                        Quit
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="screen" id="title-screen" data-bind="visible: mode() === GameModes.title">
+            <div id="game-name">Editor Scrolls</div>
+            <div id="press-any-key" class="blink">Press any key to continue</div>
+            <div id="copy-right">myTerminal &copy; 2015</div>
+        </div>
+        
+        <div class="screen" id="loading-screen" data-bind="visible: isLoading">
+            <div id="loading-label" class="blink">
+                Loading...
+            </div>
+        </div>
+    </div>
+</body>

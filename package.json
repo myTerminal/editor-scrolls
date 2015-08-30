@@ -1,0 +1,25 @@
+{
+  "name": "editor-scrolls",
+  "version": "0.9.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "install": "node installer.js",
+    "postinstall": "bower cache clean && bower install",
+    "develop" : "grunt develop"
+  },
+  "keywords": [
+    "emacs-effect"
+  ],
+  "author": "myTerminal",
+  "license": "ISC",
+  "dependencies": {
+    "package-script": "0.0.8"
+  },
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-sass": "^1.0.0"
+  }
+}
