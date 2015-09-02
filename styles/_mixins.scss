@@ -20,7 +20,24 @@
 
 @mixin perspective ($perspective: 500) {
     -webkit-perspective: $perspective;
+    -moz-perspective: $perspective;
     perspective: $perspective;
+}
+
+@mixin transform ($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -ms-transform: $transform;
+    -o-transform: $transform;
+    transform: $transform;
+}
+
+@mixin transform-origin ($originX, $originY) {
+    -webkit-transform-origin: $originX $originY;
+    -moz-transform-origin: $originX $originY;
+    -ms-transform-origin: $originX $originY;
+    -o-transform-origin: $originX $originY;
+    transform-origin: $originX $originY;
 }
 
 @mixin round-borders ($borderRadius: 5px) {
