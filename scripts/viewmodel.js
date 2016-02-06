@@ -114,6 +114,7 @@ var Viewmodel = function () {
 
     this.startEpisode = function (index) {
         self.episodeIndex = index;
+        self.experience.level(index);
         self.episode(episodes[index]);
         self.currentSlide(self.episode().slides[0]);
         self.mode(GameModes["game"]);
