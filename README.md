@@ -14,3 +14,7 @@ An RPG based on my YouTube video series [Role-Playing with Emacs](https://www.yo
 ### Role-Playing with Emacs - Episode 01
 
 [![http://img.youtube.com/vi/EqwS_I73ycc/0.jpg](http://img.youtube.com/vi/EqwS_I73ycc/0.jpg)](https://www.youtube.com/watch?v=EqwS_I73ycc)
+
+### Role-Playing with Emacs - Episode 02
+
+[![http://img.youtube.com/vi/cgavi6T7IcY/0.jpg](http://img.youtube.com/vi/cgavi6T7IcY/0.jpg)](https://www.youtube.com/watch?v=cgavi6T7IcY)
