@@ -13,7 +13,7 @@
     "emacs-effect"
   ],
   "author": "myTerminal",
-  "license": "ISC",
+  "license": "GPL-3.0",
   "dependencies": {
     "package-script": "0.0.8"
   },
