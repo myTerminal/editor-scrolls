@@ -12,7 +12,7 @@
   "keywords": [
     "emacs-effect"
   ],
-  "author": "myTerminal",
+  "author": "Mohammed Ismail Ansari <team.terminal@gmail.com>",
   "license": "GPL-3.0",
   "dependencies": {
     "package-script": "0.0.8"
