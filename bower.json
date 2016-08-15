@@ -1,13 +1,14 @@
 {
   "name": "editor-scrolls",
+  "description": "editor-scrolls",
   "version": "0.9.0",
   "authors": [
-    "myTerminal <team.terminal@gmail.com>"
+    "Mohammed Ismail Ansari <team.terminal@gmail.com>"
   ],
   "keywords": [
     "emacs"
   ],
-  "license": "MIT",
+  "license": "GPL-3.0",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -15,6 +16,11 @@
     "test",
     "tests"
   ],
+  "homepage": "https://github.com/myTerminal/editor-scrolls",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/myTerminal/editor-scrolls.git"
+  },
   "dependencies": {
     "jquery": "~2.1.4",
     "knockout": "~3.3.0"
