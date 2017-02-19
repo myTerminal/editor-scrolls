@@ -4,7 +4,8 @@
   "description": "Editor Scrolls",
   "main": "index.js",
   "scripts": {
-    "install": "node installer.js",
+    "install-globals": "npm install -g grunt-cli bower",
+    "install": "npm run install-globals",
     "postinstall": "bower cache clean && bower install && grunt",
     "start": "node starter.js",
     "develop": "grunt develop"
@@ -16,8 +17,7 @@
   "license": "GPL-3.0",
   "dependencies": {
     "body-parser": "^1.16.1",
-    "express": "^4.14.1",
-    "package-script": "0.0.8"
+    "express": "^4.14.1"
   },
   "devDependencies": {
     "grunt": "^0.4.5",
